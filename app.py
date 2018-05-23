@@ -1,11 +1,12 @@
 from flask import Flask, render_template
 from flask_googlemaps import GoogleMaps
+import plotly.plotly as py
+import plotly.graph_objs as graph_objs
 
+mapbox_access_token = "pk.eyJ1IjoiaXNwYnMiLCJhIjoiY2poaG5tcG1qMDFqZzM5bnJwZTEwdmV3NCJ9.8v27PGqngZL_uBNrBqXL0A"
 
 app = Flask(__name__)
 
-
-GoogleMaps(app, key="8JZ7i18MjFuM35dJHq70n3Hx4")
 
 
 @app.route('/')

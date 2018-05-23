@@ -22,7 +22,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
         <a class="navbar-brand" href="#">
-          <img src="/img/Wind-o.png" width="150" height="30" alt="">
+          <img src="/static/img/Wind-o.png" width="150" height="30" alt="">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -49,10 +49,19 @@
     </nav>
 
     <!-- Page Content -->
-    <div class="container">
-      <h1 class="mt-5">Welcome to Wind-O</h1>
-      {{googlemap("my_awesome_map", lat=0.23234234, lng=-0.234234234)}}
-    </div>
+    <!--<div class="container">-->
+      <!--&lt;!&ndash;<h1 class="mt-5">Haiti, 50% prob of exceedance in 50 years</h1>&ndash;&gt;-->
+      <!--&lt;!&ndash;<img src="/static/img/haiti.jpeg" style="width: 100%;">&ndash;&gt;-->
+      <!--&lt;!&ndash;<iframe frameborder="0" scrolling="no" src="//plot.ly/~ispbs/2.embed"></iframe>&ndash;&gt;-->
+    <!--</div>-->
+    <div>
+    <a href="https://plot.ly/~ispbs/2/?share_key=7w8HzXyNcvegSU8j4daIKq" target="_blank" title="d3-world-map"
+       style="display: block; text-align: center;"><img src="https://plot.ly/~ispbs/2.png?share_key=7w8HzXyNcvegSU8j4daIKq"
+                                                        alt="d3-world-map" style="max-width: 100%;width: 600px;"  width="600"
+                                                        onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+    <script data-plotly="ispbs:2" sharekey-plotly="7w8HzXyNcvegSU8j4daIKq" src="https://plot.ly/embed.js" async></script>
+</div>
+
     <!-- /.container -->
 
     <!-- Bootstrap core JavaScript -->
