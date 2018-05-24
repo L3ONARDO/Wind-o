@@ -13,9 +13,9 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/about')
+@app.route('/haiti')
 def about():
-    return render_template('about.html')
+    return render_template('haiti.html')
 
 
 @app.route('/service')
@@ -29,5 +29,5 @@ def contact():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
 
