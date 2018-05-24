@@ -1,5 +1,4 @@
 from flask import Flask, render_template
-from flask_googlemaps import GoogleMaps
 import plotly.plotly as py
 import plotly.graph_objs as graph_objs
 
