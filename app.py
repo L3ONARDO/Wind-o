@@ -15,14 +15,14 @@ def about():
     return render_template('haiti.html')
 
 
-@app.route('/service')
-def services():
-    return render_template('service.html')
-
-
-@app.route('/contact')
-def contact():
-    return render_template('contact.html')
+# @app.route('/service')
+# def services():
+#     return render_template('service.html')
+#
+#
+# @app.route('/contact')
+# def contact():
+#     return render_template('contact.html')
 
 
 if __name__ == '__main__':
