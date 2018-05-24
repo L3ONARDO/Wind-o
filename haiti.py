@@ -1,3 +1,4 @@
+import numpy as np
 from bokeh.plotting import figure, show, output_file
 from bokeh.layouts import row, widgetbox
 from bokeh.models import Slider, CustomJS, ColumnDataSource
@@ -9,10 +10,20 @@ output_file('haiti_analysis.html')
 x_scale = 14.1
 y_scale = 10
 
-x, y = [10, 10, 10, 11, 11, 11], [4, 5, 6, 4, 5, 6]
-color = [RGB(0,0,0), RGB(0,0,0), RGB(0,0,0), RGB(0,0,0), RGB(0,0,0),
-         RGB(0,0,0)]
-wind = [70, 80, 90, 80, 90, 100]  # Wind speeds for each point
+# Suppose we have the points distributed in a square grid of size 'x', so
+# there are 'x*x' elements in total
+x = []
+y = []
+color = []
+
+side = 7
+for i in range(side**2):
+    x.append((i//side) + 4)
+    y.append((i%side) + 2)
+    color.append(RGB(0,0,0))
+
+# Create some random wind data for the points
+wind = np.random.rand(side**2)*100
 
 source = ColumnDataSource(data=dict(x=x, y=y, color=color, wind=wind))
 
@@ -23,7 +34,7 @@ y_offset = (x_scale - y_scale)/2
 # Create the figure
 p = figure(x_range=(0, x_scale), y_range=(0 - y_offset, y_scale + y_offset))
 
-p.circle('x', 'y', radius=0.3, fill_color='color', source=source, level='overlay', alpha=0.7)
+p.circle('x', 'y', radius=0.5, fill_color='color', source=source, level='overlay', alpha=0.7)
 
 color_change = CustomJS(args=dict(source=source), code="""
         var data = source.data;
