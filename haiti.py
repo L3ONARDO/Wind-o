@@ -1,7 +1,7 @@
 import numpy as np
 from bokeh.plotting import figure, show, output_file
 from bokeh.layouts import row, widgetbox
-from bokeh.models import Slider, CustomJS, ColumnDataSource
+from bokeh.models import Slider, CustomJS, ColumnDataSource, Select
 from bokeh.colors import Color, RGB
 
 output_file('haiti_analysis.html')
@@ -41,13 +41,22 @@ color_change = CustomJS(args=dict(source=source), code="""
         var color = data['color'];
         var wind = data['wind'];
         var s = spec.value;
+        var h = height.value;
+
+        offset = 0;
+        if (h == "Roof level") {
+            offset = 5;
+        }
+        else if (h == "10m") {
+            offset = 20;
+        }
 
         var fc = "red"; // Final color
         var diff = 0;
 
         for (var i = 0; i < color.length; i++) {
             fc = "red";
-            diff = wind[i] - s;
+            diff = wind[i] - s + offset;
 
             if (diff < -20) {
                 fc = "green";
@@ -74,10 +83,17 @@ spec_slider = Slider(start=20, end=200, value=50, step=1,
         title="Shelter max. withstand (km/h)", callback=color_change)
 color_change.args["spec"] = spec_slider
 
+# Create the dropdown for the elevation
+height_select = Select(title="Height of measurements", value="Ground level",
+                options = ["Ground level","Roof level", "10m"],
+                callback=color_change)
+color_change.args["height"] = height_select
+
 # Add the Haiti image background
 p.image_url(url=['haiti_hq.png'], x=0, y=10, w=14.1, h=10)
 
 # Set up the GUI
-layout = row(p, spec_slider)
+layout = row(p,
+             widgetbox(spec_slider, height_select))
 
 show(layout)
