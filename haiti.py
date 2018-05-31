@@ -33,6 +33,18 @@ y_offset = (x_scale - y_scale)/2
 
 # Create the figure
 p = figure(x_range=(0, x_scale), y_range=(0 - y_offset, y_scale + y_offset))
+p.title.text = 'Haiti case study'
+
+# Add the Haiti image background
+p.image_url(url=['haiti_hq.png'], x=0, y=10, w=14.1, h=10)
+
+# Add elevation (terrain roughness) overlay
+p.patch([0, x_scale, x_scale, 0],
+        [0, 0, y_scale, y_scale],
+        fill_alpha=0.2,
+        line_alpha=0,
+        fill_color='blue',
+        level='overlay')
 
 p.circle('x', 'y', radius=0.5, fill_color='color', source=source, level='overlay', alpha=0.7)
 
@@ -89,8 +101,6 @@ height_select = Select(title="Height of measurements", value="Ground level",
                 callback=color_change)
 color_change.args["height"] = height_select
 
-# Add the Haiti image background
-p.image_url(url=['haiti_hq.png'], x=0, y=10, w=14.1, h=10)
 
 # Set up the GUI
 layout = row(p,
