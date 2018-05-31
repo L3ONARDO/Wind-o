@@ -44,4 +44,4 @@ layout = dict(
 )
 
 fig = dict(data=data, layout=layout )
-url = py.plot(fig, filename='d3-world-map')
+url = py.plot(fig, filename='d3-world-map', displayModeBar=False)
