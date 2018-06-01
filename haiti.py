@@ -44,9 +44,17 @@ p.patch([0, x_scale, x_scale, 0],
         fill_alpha=0.2,
         line_alpha=0,
         fill_color='blue',
+        legend='Terrain Roughness',
         level='overlay')
 
-p.circle('x', 'y', radius=0.5, fill_color='color', source=source, level='overlay', alpha=0.7)
+p.circle('x',
+         'y',
+         radius=0.5,
+         fill_color='color',
+         source=source,
+         level='overlay',
+         legend='Shelter withstandings',
+         alpha=0.7)
 
 color_change = CustomJS(args=dict(source=source), code="""
         var data = source.data;
@@ -101,6 +109,8 @@ height_select = Select(title="Height of measurements", value="Ground level",
                 callback=color_change)
 color_change.args["height"] = height_select
 
+# Make legend hide on click
+p.legend.click_policy="hide"
 
 # Set up the GUI
 layout = row(p,
