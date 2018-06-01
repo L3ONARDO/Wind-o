@@ -4,6 +4,8 @@ from bokeh.layouts import row, widgetbox
 from bokeh.models import Slider, CustomJS, ColumnDataSource, Select
 from bokeh.colors import Color, RGB
 
+import random
+
 output_file('haiti_analysis.html')
 
 
@@ -39,14 +41,29 @@ p.title.text = 'Haiti case study'
 p.image_url(url=['haiti_hq.png'], x=0, y=10, w=14.1, h=10)
 
 # Add elevation (terrain roughness) overlay
-p.patch([0, x_scale, x_scale, 0],
-        [0, 0, y_scale, y_scale],
-        fill_alpha=0.2,
-        line_alpha=0,
-        fill_color='blue',
-        legend='Terrain Roughness',
-        level='overlay')
+elevation_colors = ['blue', 'red', 'green', 'yellow', 'orange']
+x_elevation_cells = 14
+y_elevation_cells = 10
 
+for i in range(x_elevation_cells):
+    for j in range(y_elevation_cells):
+        # We do some math to distribute the patches all along the map
+        x_unit = x_scale/x_elevation_cells
+        x_start = x_unit*i
+        x_end = x_unit*(i+1)
+        y_unit = y_scale/y_elevation_cells
+        y_start = y_unit*j
+        y_end = y_unit*(j+1)
+
+        p.patch([x_start, x_end, x_end, x_start],
+                [y_start, y_start, y_end, y_end],
+                fill_alpha=0.2,
+                line_alpha=0,
+                fill_color=random.choice(elevation_colors),
+                legend='Terrain Roughness',
+                level='overlay')
+
+# Add the shelter withstanding circle markers
 p.circle('x',
          'y',
          radius=0.5,
