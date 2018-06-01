@@ -36,6 +36,9 @@ y_offset = (x_scale - y_scale)/2
 # Create the figure
 p = figure(x_range=(0, x_scale), y_range=(0 - y_offset, y_scale + y_offset))
 p.title.text = 'Haiti case study'
+p.toolbar.active_drag = None  # Disable dragging
+p.toolbar.logo = None
+p.toolbar_location = None
 
 # Add the Haiti image background
 p.image_url(url=['haiti_hq.png'], x=0, y=10, w=14.1, h=10)
