@@ -127,7 +127,7 @@ color_change = CustomJS(args=dict(source=source), code="""
 
 # Create a slider
 spec_slider = Slider(start=20, end=200, value=50, step=1,
-        title="Shelter max. withstand (km/h)", callback=color_change)
+        title="Shelter base withstand (km/h)", callback=color_change)
 color_change.args["spec"] = spec_slider
 
 # Create the dropdown for the elevation
