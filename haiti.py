@@ -1,7 +1,7 @@
 import numpy as np
 from bokeh.plotting import figure, show, output_file
 from bokeh.layouts import row, widgetbox
-from bokeh.models import Slider, CustomJS, ColumnDataSource, Select
+from bokeh.models import Slider, CustomJS, ColumnDataSource, Select, TextInput
 from bokeh.colors import Color, RGB
 
 import random
@@ -82,6 +82,8 @@ color_change = CustomJS(args=dict(source=source), code="""
         var wind = data['wind'];
         var s = spec.value;
         var h = height.value;
+        var shelter_low_roof = shelter_low_roof.value;
+        var shelter_high_roof = shelter_high_roof.value;
 
         offset = 0;
         if (h == "Roof level") {
@@ -94,9 +96,14 @@ color_change = CustomJS(args=dict(source=source), code="""
         var fc = "red"; // Final color
         var diff = 0;
 
+        // The higher the shelter, the lower wind it should be able to
+        // withstand
+        var shelter_height_effects = 10 * shelter_low_roof
+                                     + 4 * shelter_high_roof;
+
         for (var i = 0; i < color.length; i++) {
             fc = "red";
-            diff = wind[i] - s + offset;
+            diff = wind[i] - s + offset + shelter_height_effects;
 
             if (diff < -20) {
                 fc = "green";
@@ -129,11 +136,32 @@ height_select = Select(title="Height of measurements", value="Ground level",
                 callback=color_change)
 color_change.args["height"] = height_select
 
+# Create the input for the shelter characteristics
+shelter_low_roof = TextInput(value='2', title='Lower roof height (sides)',
+                             callback=color_change)
+color_change.args["shelter_low_roof"] = shelter_low_roof
+shelter_high_roof = TextInput(value='2.3', title='High roof height (center)',
+                              callback=color_change)
+color_change.args["shelter_high_roof"] = shelter_high_roof
+shelter_length = TextInput(value='4', title='Length', callback=color_change)
+color_change.args["shelter_length"] = shelter_length
+shelter_width = TextInput(value='2', title='Width', callback=color_change)
+color_change.args["shelter_width"] = shelter_width
+orientation = Slider(start=0, end=180, value=0, step=5, title='Orientation',
+                     callback=color_change)
+color_change.args["shelter_orientation"] = orientation
+
 # Make legend hide on click
 p.legend.click_policy="hide"
 
 # Set up the GUI
 layout = row(p,
-             widgetbox(spec_slider, height_select))
+             widgetbox(spec_slider,
+                       height_select,
+                       shelter_low_roof,
+                       shelter_high_roof,
+                       shelter_length,
+                       shelter_width,
+                       orientation))
 
 show(layout)
