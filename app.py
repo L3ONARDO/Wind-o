@@ -19,8 +19,13 @@ def about():
 
 @app.route('/get-file')
 def get_file():
-    d = os.path.join(settings.STATIC_ROOT, 'result.pdf')
+    d = '../static/result.pdf'
     return send_file(d, attachment_filename = 'result.pdf')
+
+# @app.route('/get-file')
+# def get_file():
+#     d = os.path.join(settings.STATIC_ROOT, 'result.pdf')
+#     return send_file(d, attachment_filename = 'result.pdf')
 
 # @app.route('/haiti')
 # def export():
