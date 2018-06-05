@@ -17,30 +17,19 @@ def index():
 def about():
     return render_template('haiti.html')
 
-@app.route('/get-file')
-def get_file():
-    d = '../static/result.pdf'
-    return send_file(d, attachment_filename = 'result.pdf')
-
 # @app.route('/get-file')
 # def get_file():
-#     d = os.path.join(settings.STATIC_ROOT, 'result.pdf')
+#     d = '../static/result.pdf'
 #     return send_file(d, attachment_filename = 'result.pdf')
 
-# @app.route('/haiti')
-# def export():
-#     return render_template('haiti.html')
+@app.route('/get-file')
+def get_file():
+    d = os.path.join(settings.STATIC_ROOT, 'result.pdf')
+    print(d)
+    return send_file(d, attachment_filename = 'result.pdf')
 
-# @app.route('/service')
-# def services():
-#     return render_template('service.html')
-#
-#
-# @app.route('/contact')
-# def contact():
-#     return render_template('contact.html')
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
 
