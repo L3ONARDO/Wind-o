@@ -150,6 +150,10 @@ color_change.args["shelter_width"] = shelter_width
 orientation = Slider(start=0, end=180, value=0, step=5, title='Orientation',
                      callback=color_change)
 color_change.args["shelter_orientation"] = orientation
+deisgn_period = TextInput(value='5', title='Design period', callback=color_change)
+color_change.args["deisgn_period"] = deisgn_period
+user_period = TextInput(value='2', title='User period', callback=color_change)
+color_change.args["user_period"] = user_period
 
 # Make legend hide on click
 p.legend.click_policy="hide"
@@ -162,6 +166,8 @@ layout = row(p,
                        shelter_high_roof,
                        shelter_length,
                        shelter_width,
-                       orientation))
+                       orientation,
+                       deisgn_period,
+                       user_period))
 
 show(layout)
