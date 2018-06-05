@@ -25,11 +25,10 @@ def about():
 @app.route('/get-file')
 def get_file():
     d = os.path.join(settings.STATIC_ROOT, 'result.pdf')
-    print(d)
     return send_file(d, attachment_filename = 'result.pdf')
 
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
 
